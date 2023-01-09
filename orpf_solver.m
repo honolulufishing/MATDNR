@@ -22,7 +22,7 @@ switch option
         SOC_value_opt = SOC_value;
         
        case 'socp_baron'
-        % SOCP-based ORPF Model by MOSEK Package
+        % SOCP-based ORPF Model by Baron Package
         [loss,gen_s,busV,Lnbr_s,trsfm_s,shtc_s,shtr,vctr,elapsed_time,SOC_value,I2] = opti_var_baron(gen,bus,Lnbr,trsfm,shtc,shtr,vctr,sysdt);
         
         L_opt = loss;
@@ -37,6 +37,19 @@ switch option
         t_opt = elapsed_time;
         SOC_value_opt = [];   
         
+        case 'sdp_sedumi'
+        % SDP-based ORPF Model by SeduMi Package
+        [loss,gen_s,busV,Lnbr_s,trsfm_s,shtc_s,shtr,vctr,elapsed_time,SOC_value,I2] = opti_varSDP_sedumi(gen,bus,Lnbr,trsfm,shtc,shtr,vctr,sysdt);
        
-        
+        L_opt = loss;
+        t_opt = elapsed_time;
+        SOC_value_opt = SOC_value;   
+       
+        case 'opti_var_polyhedral_mosek'
+        % ORPF Model with Polyhedral Approximation of SOC constraints by MOSEK Package
+        [loss,gen_s,busV,Lnbr_s,trsfm_s,shtc_s,shtr,vctr,elapsed_time,SOC_value,I2] = opti_var_polyhedral_mosek(gen,bus,Lnbr,trsfm,shtc,shtr,vctr,sysdt);
+       
+        L_opt = loss;
+        t_opt = elapsed_time;
+        SOC_value_opt = SOC_value;   
 end
