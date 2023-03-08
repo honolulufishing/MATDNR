@@ -128,4 +128,23 @@ switch option
             num_branch_opt=0;
             SOC_value_opt = 0;
         end 
+        
+            case 'misocp_dch'
+        % Exact DNR Model with Disjunctive Convex Hull Method by MOSEK Package
+        [u,loss,gen,bus,Lnbr_output,trsfm,shtc,shtr,vctr,elapsed_time, SOC_value,num_branch,flag] = opti_DNR_EDF_SCF_DCH(gen,bus,Lnbr_all,trsfm,shtc,shtr,vctr,sysdt);
+        if flag==1
+            L_opt = loss;
+            t_opt = elapsed_time;
+            u_opt = u;
+            flag_opt = flag;
+            num_branch_opt=num_branch;
+            SOC_value_opt =[];
+        else
+            L_opt =  0;
+            t_opt = 0;
+            u_opt = [];
+            flag_opt = 0;
+            num_branch_opt=0;
+            SOC_value_opt = 0;
+        end
 end

@@ -24,7 +24,7 @@ bus = [
 %      Bus    --Gen--   ---Q---   Vol
 %       NO.   MW   MVA  Max  Min  Mag.
 gen = [ 
-	  	1	 0.5   0	1.5  -0.2	   1.1  1
+	  	1	 0.5   0	1.5  -0.2	   1.05  1
       ];
 % Note: sequence should be like ref+pv
   
@@ -33,12 +33,12 @@ gen = [
 %      LnBR.  Bus   Bus    R      X     1/2 B     switch
 %       NO.   from   to   p.u.   p.u.    p.u.     status         
 Lnbr_all = [
-        1	   1	2	0.041	0.052	0   2
-        2	   2	3	0.049	0.055	0   1
-        3	   3	4	0.066	0.070	0   2
-        4	   2	5	0.036	0.049	0   1
-        5	   3	6	0.056	0.078	0   0   
-        6      6    5   0.016	0.078	0   1
+        1	   1	2	0.041	0.052	0.001   2
+        2	   2	3	0.049	0.055	0.002   1
+        3	   3	4	0.066	0.070	0.003   2
+        4	   2	5	0.036	0.049	0.002   1
+        5	   3	6	0.056	0.078	0.004   1   
+        6      5    6   0.016	0.078	0.003   0
     ];
 % 2 indicates this branch does not have a circuit breaker
 

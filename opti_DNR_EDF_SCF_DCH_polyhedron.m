@@ -1,11 +1,9 @@
 function [u,loss,gen,bus,Lnbr_output,trsfm,shtc,shtr,vctr,elapsed_time, SOC_value,num_branch,flag] = opti_DNR_EDF_SCF_DCH_polyhedron(gen,bus,Lnbr_all,trsfm,shtc,shtr,vctr,sysdt)
-% Exact DistFlow-based Topology Reconfiguration Model using Disjunctive Convex Hull
-% Note: Conventinal Convex Hull for (1c)
+% Exact DistFlow-based Topology Reconfiguration Model using Polyhedron Approximation
 % Obj: Minimize Real Power Loss over reconfigurable topology and reactive power compensation devices
-% s.t. Spanning Tree (ST) Constraints + Single-Commodity Flow (SCF) Constraints + DistFlow equations using disjunctive convex hull relaxations
-% where quadratic equations in DistFlow equations are tightned by convex
-% hull relaxations for a single branch.
-% For more information, please refers to our research paper.
+% s.t. Spanning Tree (ST) Constraints + Single-Commodity Flow (SCF) Constraints + DistFlow equations using Polyhedron Approximation
+% where SOC constraints in DistFlow equations hire polyhedron approximations
+
 % Author: Chao Lei
 % e-mail: 21118924r@connnect.polyu.hk
 % Date: 2022.08.21

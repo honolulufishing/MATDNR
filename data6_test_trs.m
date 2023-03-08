@@ -1,4 +1,4 @@
-function[gen,bus,Lnbr,trsfm,shtc,shtr,vctr,sysdt]=data6_test_trs()
+function [gen,bus,Lnbr_all,trsfm,shtc,shtr,vctr,sysdt]=data6_test_trs()
 % Power Flow Data IEEE 6-BUS Test System(Distributed Networks)
 %
 % Author(s):Chao Lei
@@ -15,40 +15,40 @@ bus = [
     2      1    0        0       0   0    1   0     0.9   1.1  % 1.01
     3      1    -0.3    -0.03    0   0    1   0     0.9   1.1   % 1.03  
     4      1    -0.2    -0.02    0   0    1    0     0.9   1.1 
-    5	   1	 -0.6	 -0.06	     0	 0	  1.150      0   1.0   1.1
-     6	   1	 -0.1	  -0.01	     0	 0	  1.144     0.000     1.0   1.10
+    5	   1	 -0.6	 -0.06	     0	 0	  1.150      0    0.9  1.1
+     6	   1	 -0.1	  -0.01	     0	 0	  1.144     0.000      0.9   1.10
     ];
 
 % -------------------- Gen Data ----------------- %
-%      Bus    --Gen--   ---Q---   Vol
-%       NO.   MW   MVA  Max  Min  Mag.
+%      Bus    --Gen--   ---Q---   Vol     gen     ---P---    gen_cost_b
+%       NO.   MW   MVA  Max  Min  Mag.   status    max min     
 gen = [ 
-	  	1	 0.5   0	1.5  -0.2	   1.08 1
+	  	1	 0.5   0	1.5  -0.2	1.08  1        2000   0     40
       ];
 % Note: sequence should be like ref+pv
   
   
 % -------------------- Line Data ----------------- %
-%      LnBR.  Bus   Bus    R      X     1/2 B  
-%       NO.   from   to   p.u.   p.u.    p.u.              
-Lnbr = [
-        1	   2	3	0.049	0.055	0
-        2	   3	4	0.066	0.070	0
-        3	   2	5	0.036	0.049	0
-        4	   3	6	0.056	0.078	0   
+%      LnBR.  Bus   Bus    R      X     1/2 B  switch  Cap.
+%       NO.   from   to   p.u.   p.u.    p.u.  status  MW               
+Lnbr_all = [
+        1	   2	3	0.049	0.055	0 1  1000
+        2	   3	4	0.066	0.070	0 1  1000
+        3	   2	5	0.036	0.049	0 1  1000
+        4	   3	6	0.056	0.078	0 1  1000
     ];
 
 % --------------------------- Transformer Data --------------------------- %
 %      TrsBR.  Bus   Bus    R     X      ----- Tap -----     Tap      Tap
 %       NO.   from   to    p.u.  p.u.    Ratio  Max  Min    Series   Status
-trsfm = [1	   1	2	  0.041	0.052	1  1.1 0.9 1 1   
+trsfm = [1	   1	2	  0.041	0.052	0.9  1.1 0.9 1 1   
  ]; 
 
 % ---- Additonal Facility Data ---- %
 % ----------- shunt capacity Data ------------ %
 %      Bus  shtc     ---Q---  
 %       NO. Mvar  Max  Min 
-shtc = [ 3 0 0.1 0  16 1 
+shtc = [ 3 0.1 0.1 0  16 1 
 ]; 
 % only reactive compensation exists in the PQ buses.
 
@@ -66,8 +66,8 @@ sysdt(ACCURACY)  =   1e-6;   % Tolerance Constant
 % sysdt(CPOPT)     =   1;    %  
 
 % convert R and X in Line Branch with per unit system
-%bus (:,3:6) = -bus (:,3:6);
-%gen (:,2:3) = gen (:,2:3)./sysdt(BASEMVA);
+Lnbr_all(:,8) = Lnbr_all(:,8)./sysdt(BASEMVA);
+gen(:,8) = gen(:,8)./sysdt(BASEMVA);
 
 
 
